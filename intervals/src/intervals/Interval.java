@@ -27,9 +27,9 @@ package intervals;
  * Abstract  state invariants: (you don't need to necessarily write this)
  * 
  * @invar The lower bound is not greater than the upper bound (informal)
- * 		| getLowerBound(this) <= getUpperBound(this) (formal)
+ * 		| this.getLowerBound() <= this.getUpperBound() (formal)
  * @invar The length equals the difference between the upper and lower bound
- * 		| getLength(this) == getUpperBound(this) - getLowerBound(this)
+ * 		| this.getLength() == this.getUpperBound() - this.getLowerBound()
  * 
  */
 
@@ -45,44 +45,42 @@ public class Interval {
 	private int lowerBound;
 	private int upperBound;
 
-	public static int getLowerBound(Interval interval) {return interval.lowerBound; } // we can implement methods before writing them out, we then write: throw new RuntimeException ("not yet implemented");
+	public int getLowerBound() {return this .lowerBound; } // we can implement methods before writing them out, we then write: throw new RuntimeException ("not yet implemented");
 	
-	public static int getUpperBound(Interval interval) {return interval.upperBound; }
+	public  int getUpperBound() {return this .upperBound; }
 	
-	public static int getLength (Interval interval) {return(interval.upperBound-interval.lowerBound); }
+	public  int getLength () {return(this.upperBound-this.lowerBound); }
 	
 	// you can call this method a derived inspector
 		/**
-		 *@post | result == (getLowerBound(interval) <= x && x < getUpperBound(interval))
+		 *@post | result == (this.getLowerBound() <= x && x < this.getUpperBound())
 		 * 
 		 */
-	public static boolean cantains (Interval interval, int x){
-		return getLowerBound(interval) <= x && x < getUpperBound(interval); }
+	public  boolean cantains ( int x){//you may only remove the explicit parameter when making an instance method
+		return this.getLowerBound() <= x && x < this.getUpperBound(); }
 	
-	
-	//allow way for client to create interval objects:
+	//default constructor, now that we explicitly define it, we can define parameters for it, e.g. you have to specify a lower and upper bound
+	//Because we have the constructor method we can get rid of the create method
 	/*
 	 * @pre | lowerBound <= upperBound
-	 * @post | getLowerBound (result) == lowerBound
-	 * @post | getUpperBound (result) == upperBound
+	 * @post | result.getLowerBound () == lowerBound
+	 * @post | result.getUpperBound () == upperBound
 	 */
+	public Interval(int lowerBound, int upperBound) {
+		this.lowerBound=lowerBound;
+		this.upperBound=upperBound;
+	}
 	
-	public static Interval create(int lowerBound, int upperBound) {
-		Interval result = new Interval();
-		result.lowerBound= lowerBound;
-		result.upperBound=upperBound;
-		return result;
-		}
+	
 	/**
-	 * @pre | interval !=null
 	 * @pre | other !=null
-	 * @post | getLowerBound(result) == getLowerBound(interval) + getLowerBound(other)
-	 * @post | getUpperBound(result) == getUpperBound(interval) + getUpperBound(other) 
-	 * @post | getLength(
+	 * @post | result.getLowerBound() == this.getLowerBound() + other.getLowerBound()
+	 * @post | result.getUpperBound() == this.getUpperBound() + other.getUpperBound() 
+	 * 
 	 */
 	
-	public static Interval plus (Interval interval, Interval other) {
-		return create(interval.lowerBound+other.lowerBound, interval.upperBound + other.upperBound); }
+	public  Interval plus ( Interval other) {
+		return new Interval(this.lowerBound+other.lowerBound, this.upperBound + other.upperBound); }
 	
 	// We have now defined an API for the data abstraction
 	
