@@ -49,22 +49,22 @@ public class Interval {
 	
 	public  int getUpperBound() {return this .upperBound; }
 	
-	public  int getLength () {return(this.upperBound-this.lowerBound); }
+	public  int getLength () {return(upperBound-lowerBound); }
 	
 	// you can call this method a derived inspector
 		/**
-		 *@post | result == (this.getLowerBound() <= x && x < this.getUpperBound())
+		 *@post | result == (getLowerBound() <= x && x < getUpperBound())
 		 * 
 		 */
 	public  boolean cantains ( int x){//you may only remove the explicit parameter when making an instance method
-		return this.getLowerBound() <= x && x < this.getUpperBound(); }
+		return getLowerBound() <= x && x <getUpperBound(); }
 	
 	//default constructor, now that we explicitly define it, we can define parameters for it, e.g. you have to specify a lower and upper bound
 	//Because we have the constructor method we can get rid of the create method
 	/*
 	 * @pre | lowerBound <= upperBound
-	 * @post | result.getLowerBound () == lowerBound
-	 * @post | result.getUpperBound () == upperBound
+	 * @post | getLowerBound () == lowerBound
+	 * @post | getUpperBound () == upperBound
 	 */
 	public Interval(int lowerBound, int upperBound) {
 		this.lowerBound=lowerBound;
@@ -74,13 +74,13 @@ public class Interval {
 	
 	/**
 	 * @pre | other !=null
-	 * @post | result.getLowerBound() == this.getLowerBound() + other.getLowerBound()
-	 * @post | result.getUpperBound() == this.getUpperBound() + other.getUpperBound() 
+	 * @post | result.getLowerBound() == getLowerBound() + other.getLowerBound()
+	 * @post | result.getUpperBound() == getUpperBound() + other.getUpperBound() 
 	 * 
 	 */
 	
 	public  Interval plus ( Interval other) {
-		return new Interval(this.lowerBound+other.lowerBound, this.upperBound + other.upperBound); }
+		return new Interval(lowerBound+other.lowerBound, this.upperBound + other.upperBound); }
 	
 	// We have now defined an API for the data abstraction
 	
